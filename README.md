@@ -415,3 +415,161 @@ public class Demo {
 
 ```
 # 6. What is NAN? Not a number, How nan is defined in diff language.
+
+## What is Nan?
+Not a number i.e undefined number  
+When u perform floating point operation like sqrt of negative number, modulus, divide by 0.0
+
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String args[]) {
+
+		//System.out.println(2/0); or 0/0  same result Exception in thread "main" java.lang.ArithmeticException: / by zero
+		
+		System.out.println(1.0 /0.0); // or 2.0/0.0 or 1/0.0    ===>  Infinity		
+	
+		System.out.println(0.0/0.0); // NaN    This number is actually not defined
+		
+		System.out.println(Math.sqrt(-1)); //NAN sqrt of negative number is not defined
+		
+		System.out.println(2.1 % 0); // NaN
+		
+    	//System.out.println(1 % 0); // Exception in thread "main" java.lang.ArithmeticException: / by zero
+		
+		
+	}
+}
+
+```
+
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String args[]) {
+		
+		//Generate a NaN number
+		System.out.println(Float.NaN); // NaN 
+		
+		//Compare NaN number with another one
+		System.out.println(Float.NaN == Float.NaN); //false 2 NaN numbers are not equal
+		
+		System.out.println(Float.NaN != Float.NaN); //true
+		
+		double nan = 2.1 % 0;
+		
+		System.out.println((2.1 % 0) == nan); //false
+		
+		System.out.println(nan == nan); //false
+		
+		
+	}
+}
+```
+# 7. What will be the output when you divide the number by zero?
+
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String args[]) {
+		
+		//Number  = Integer , Double , Float
+		
+		//Arithmetic exception happen only in case of Integer		
+		//Integer
+//		System.out.println(9/0);  Exception in thread "main" java.lang.ArithmeticException: / by zero		
+//		System.out.println(0/0); Exception in thread "main" java.lang.ArithmeticException: / by zero		
+		System.out.println(10 /0.0); // Infinity
+		
+		//Floatig or Double		
+		//A floating or double number if divide by 0 or 0.0 it will give infinity
+		System.out.println(9.0 / 0); //Infinity		
+		System.out.println(9.1F/0); // Infinity		
+		System.out.println(91.99D / 0); //Infinity		
+		System.out.println(9.0 / 0.0); // Infinity
+		
+		System.out.println(0.0 /0); //NaN 0.0 is undefined number
+		System.out.println(0.0 /0.0); //NaN	
+		
+	}
+}
+```
+# 8. What's output when print a long number with L or without L suffix in Java?
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String args[]) {
+		
+		// 1000 * 60 * 60 * 24 * 365 = 31536000000
+		
+		long longNumberWithoutL = 1000*60*60*24*365;
+		long longNumberWithL = 1000*60*60*24*365L;
+		
+		System.out.println(longNumberWithoutL);//1471228928
+		
+		System.out.println(longNumberWithL);//31536000000
+		
+				
+		// 31536000000 -- 36 bits representation
+			//Decimal to binary conversion
+			//11101010111101100010010110000000000   
+		
+		// Max limit of integer : 2147483647 i.e 32 bits
+//		System.out.println(Integer.MAX_VALUE);2147483647
+		
+		//so it will cut 4 bits from left side in above binary number 
+		//java will truncate 4 Most significant bits in order to get 32 bits
+		// 1010111101100010010110000000000  i.e 1471228928
+		
+	}
+}
+
+```
+# 9. What is the MIN_Value of Double and Float in java?
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String args[]) {
+	
+		//In case of Double or Float their minimum value is positive number
+		System.out.println(Double.MIN_VALUE);// 4.9E-324  is a positive number		
+		System.out.println(Float.MIN_VALUE);//1.4E-45 is a positive number
+		
+		System.out.println(Long.MIN_VALUE); // -9223372036854775808  is a negative number
+		System.out.println(Integer.MIN_VALUE); // -2147483648 is a negative number
+		
+		
+		//Compare Double.MIN_VALUE with 0.0d which one is lowest?
+		System.out.println(Math.min(Double.MIN_VALUE, 0.0d)); // 0.0 The Double.MIN_VALUE is greater than 0.0d
+		System.out.println(Math.min(Float.MIN_VALUE, 0.0f));// 0.0
+		
+		//Compare Integer min value with 0
+		System.out.println(Math.min(Integer.MIN_VALUE, 0));// -2147483648  0 is greater in case of Integer
+		
+		
+		//Which one is bigger Double.MIN_VALUE or NEGATIVE_INFINITY
+		
+		System.out.println(Double.NEGATIVE_INFINITY); // -Infinity
+		System.out.println(Math.min(Double.MIN_VALUE, Double.NEGATIVE_INFINITY)); // -Infinity
+		
+	}
+}
+
+```
+
+# 10. Will Static Block be executed with final Variable?
+
+
+
+
+
