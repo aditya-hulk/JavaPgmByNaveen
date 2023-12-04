@@ -8,5 +8,8 @@
 # 8. What's output when print a long number with L or without L suffix in Java?
 # 9. What is the MIN_Value of Double and Float in java?
 # 10. Will Static Block be executed with final Variable?
+# 11. How many String Objects will be created? String Object and String Constant pool
+# 12. Pass null argument with method overloading of String and Object types
+# 13. Top 10 Static & Instance block based interview question.
 
 

@@ -568,6 +568,173 @@ public class Demo {
 ```
 
 # 10. Will Static Block be executed with final Variable?
+![Alt text](image-1.png)
+
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String args[]) {
+	
+		System.out.println(Main.x);
+	}	
+}
+
+class Main{
+	
+	public static int x = 100;
+	
+	static {
+		System.out.println("Main- class Static block...");
+	}
+}
+```
+## What will be the output in above case?
+Will static block execute along with variable or what
+
+    Output: 
+    Main- class Static block...
+    100
+
+## What happen in case of static final keyword?
+![Alt text](image-2.png)
+ IN order to improve performance   
+ this Main.x is final so it's actually replaced with 100   in dot class file or byte code  
+		so it is represent 100   
+		It will directly take value of x
+
+It will not  load the main class
+
+![Alt text](image-3.png)
+
+![Alt text](image-4.png)
+
+Check via online code decompiler
+
+# 11. How many String Objects will be created? String Object and String Constant pool
+
+You can create String object via  2 types. 
+1) via String literals
+2) via String objects
+
+## Via String Objects
+![Alt text](image-5.png)
+
+So whenever we create String object via new keyword, One object is created in side heap memory and one object created inside SCP(provided it is not present earlier.)
+
+SCP is created for memory optimization/ performance.
+
+![Alt text](image-6.png)
+
+SCP mein New World pehle se hai toh wapas se create nahi karenga n2 usme New World
+
+## Via String literal
+String s1 ="Hello World";
+
+![Alt text](image-7.png)
+
+When you create s3 = "Hello World"; It is already their in SCP so  it won't create.
+Whenever you create object with string literal, the object is created in SCP but before that it will check inside SCP that the object is already present or not. And if present won't create if not then create.
+
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String args[]) {
+	
+		String s1 = "Hello World";
+		String s2 = "Hello World";
+		String s3 = s1;
+		
+		String n1 = new String("Hello World");
+		String n2 = new String("Hello World");
+		
+		/*
+		 * How many String object will be created?
+		 *      3 (1 in SCP 2 in heap)
+		 * */
+		
+		System.out.println(s1 == s2); // true
+		System.out.println(s2 == s3); // true
+		System.out.println(s1 == s3); // true
+
+        System.out.println(n1 == n2); // false
+        System.out.println(n1 == s3); // false
+
+        // == operator compare refrences
+	}	
+}
+
+
+```
+![Alt text](image-8.png)
+
+# 12. Pass null argument with method overloading of String and Object types
+
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String args[]) {
+	
+		// method overloading - With in same class - same method name but diff types of parameter
+		//		sequence of parameter is also diff is called method overloading 
+		
+		
+		Demo.test(1, 1.2F); // Hello test Int float
+		Demo.test(3.4F, 1); // Hello test  float   Int
+		
+	}	
+	
+	public static void test(int a, float b) {
+		System.out.println("Hello test Int float");
+	}
+	
+	public static void test( float b, int a) {
+		System.out.println("Hello test  float   Int");
+	}
+}
+
+```
+
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void test(Object o) {
+		System.out.println("Object Argumnet");
+	}
+	
+	public static void test(String s) {
+		System.out.println("String Argumnet");
+	}
+	
+	
+	public static void main(String args[]) {
+	
+		//Object is superclass of String, and both can have null values
+		
+		test(null); // String Argumnet
+
+		//For null String is quite obvious data type. So Compiler will go with String
+	
+	}	
+
+}
+
+
+```
+
+## What happen with try to overload with StringBuffer or StringBuilder
+![Alt text](image-9.png)
+
+# 13. Top 10 Static & Instance block based interview question.
+
+
 
 
 
