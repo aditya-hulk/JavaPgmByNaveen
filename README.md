@@ -734,6 +734,474 @@ public class Demo {
 
 # 13. Top 10 Static & Instance block based interview question.
 
+## Explain static block in java?
+
+```java
+package com.adi;
+
+public class Demo {
+
+	//static block is written using static keyword
+	static {
+		System.out.println("static block");
+	}
+	
+	
+	public static void main(String args[]) {	
+		
+	}	
+
+}
+```
+    output: static block
+When you run the main method of class. The class load itself and static block is execute.
+
+```java
+package com.adi;
+
+public class Demo {
+
+	//static block is written using static keyword
+	static {
+		System.out.println("static block");
+	}
+	
+	
+	public static void main(String args[]) {	
+		
+		System.out.println("Main method");
+	}	
+
+}
+```
+      Output : static block   
+               Main method
+
+Whenever Jvm load the class the static class is executed even before main method.
+
+### Can we have n number of static block. Yes
+```java
+package com.adi;
+
+public class Demo {
+
+	
+	static {
+		System.out.println("static block 1");
+	}
+	static {
+		System.out.println("static block 2");
+	}
+	
+	
+	public static void main(String args[]) {	
+		
+		System.out.println("Main method");
+	}	
+
+}
+
+```
+    Output : static block 1
+             static block 2
+                Main method
+
+### static block is written anywhere in your class. The output is in what matter you written .
+```java
+package com.adi;
+
+public class Demo {
+
+	
+	static {
+		System.out.println("static block 5");
+	}
+	static {
+		System.out.println("static block 2");
+	}
+	
+	
+	public static void main(String args[]) {	
+		
+		System.out.println("Main method");
+	}	
+	
+	static {
+		System.out.println("static block 1");
+	}
+	static {
+		System.out.println("static block 3");
+	}
+}
+static block 5
+static block 2
+static block 1
+static block 3
+Main method
+
+```
+## Q.2) How can we run a java program without making any object?
+```java
+package com.adi;
+
+public class Demo {
+
+//Static block is called when you load the class	
+	static {
+		System.out.println("Static block");
+	}
+	
+//U need call explicitly to static method
+	public static void test() {
+		System.out.println("testing method");
+	}
+
+//This main() method will be called by Jvm
+	public static void main(String arg[]) {
+		System.out.println("main method");
+	}
+}
+Static block
+main method
+```
+
+```java
+package com.adi;
+
+public class Demo {
+
+
+	static {
+		System.out.println("Static block");
+	}
+	
+
+	public static void test() {
+		System.out.println("testing method");
+	}
+
+
+	public static void main(String arg[]) {
+		System.out.println("main method");
+		
+		//IN order to call static method
+		test(); // call direclty or with class name
+		Demo.test();
+	}
+}
+Static block
+main method
+testing method
+testing method
+
+```
+
+U don't require object in order to run the static method. And static block will be directly called at the time of class loading.
+
+## What is the similarity between static block and static method.
+
+### Similarity :
+Both are static in nature.  
+We don't need to create the object in order to call them.
+
+### difference :
+static block will be called in the moment when class is loaded.  
+static method will not be called automatically, we need to call it explicitly either by direct calling or using by class name.
+
+## can we call static method from another static method.
+```java
+package com.adi;
+
+public class Demo {
+
+
+	static {
+		System.out.println("Static block");
+	}
+	
+
+	public static void test() {
+		System.out.println("testing method");
+	}
+
+	//Can we call static method i.e test() method inside another static i.e cover() method
+	public static void cover() {
+		System.out.println("Cover method");
+		test();
+	}
+
+
+	public static void main(String arg[]) {
+		System.out.println("main method");
+	
+		cover();
+	}
+}
+
+Static block
+main method
+Cover method
+testing method
+```
+## How can we create an objects if we make our constructor private.
+We can do this via 1) static block 2) static mehtod
+
+```java
+package com.adi;
+
+public class Demo {
+
+	//How can we create an objects if we make our constructor private
+	
+	int age;
+	
+	//We can create object of this class inside this class since this constructor 
+	// can only access within the class.
+	// outside of the class it is not accessible.
+	private Demo() {
+		age =30;
+	}
+	
+	public static void main(String arg[]) {
+		
+		Demo demo = new Demo();
+		System.out.println(demo.age);
+	}
+}
+
+30
+```
+### Can we access this object outside of class
+![Alt text](image-10.png)
+
+### via static method
+```java
+package com.adi;
+
+public class Demo {
+
+	
+	int age;
+	
+	public static int createObject() {
+		
+		Demo demo = new Demo();
+		demo.age=40;
+		
+		return demo.age;
+	}
+
+	private Demo() {
+		age =30;
+	}
+	
+	public static void main(String arg[]) {
+	
+	}
+}
+```
+```java
+package com.adi;
+
+public class Test {
+	
+	public static void main(String arg[]) {
+		
+		int i = Demo.createObject();
+		System.out.println(i);//40
+		
+	}
+}
+
+```
+### via static block
+```java
+package com.adi;
+
+public class Demo {
+
+	
+	 static int age;
+	
+	static {		
+		age=50;
+	}
+	
+	public static int createObject() {
+		
+		return age;
+	}
+
+	private Demo() {
+		age =30;
+	}
+	
+	public static void main(String arg[]) {
+	
+	}
+}
+```
+```java
+package com.adi;
+
+public class Test {
+	
+	public static void main(String arg[]) {
+		
+		System.out.println(Demo.createObject());
+	
+	}
+}
+
+```
+## Is it possible to compile and run java program without writing main() method?
+
+```java
+package com.adi;
+
+public class Demo {
+
+	//Is it possible to compile and run java program without writing main() method?
+	//Yes
+	//Here we create 2 static method.
+	// If we need to compile and run this pgm then.
+	
+	static {
+		System.out.println("Inside static block1");
+	}
+	
+	static {
+		System.out.println("Inside static block2");
+	}
+}
+```
+```java
+package com.adi;
+
+public class Test {
+	
+	public static void main(String arg[]) {
+		
+	Demo demo = new Demo();
+	
+	
+	}
+}
+Inside static block1
+Inside static block2
+```
+### another approach
+```java
+package com.adi;
+
+public class Demo {
+
+	static int age = 20;
+	
+	static {
+		System.out.println("static 1");
+	}
+	
+	static {
+		System.out.println("static 2");
+	}
+}
+```
+```java
+package com.adi;
+
+//client class 
+public class Test {
+	
+	public static void main(String arg[]) {
+		
+		System.out.println(Demo.age);
+	
+	
+	}
+}
+static 1
+static 2
+20
+```
+## Can we initialize member variable within static block.
+```java
+package com.adi;
+
+public class Demo {
+
+	//Can we initialize member variable withing static block
+	
+	String name;
+	
+	static {
+		
+		Demo d = new Demo();
+		d.name="ADitya"; // we can initialize memeber variable within static block.
+	}
+	
+	public static void main(String ar[]) {
+		
+	}
+}
+```
+```java
+package com.adi;
+
+public class Demo {
+	
+	String name;
+	static int age;
+	
+	static {
+		
+		Demo d = new Demo();
+		d.name="ADitya";
+		age =34;
+		
+		System.out.println(d.name +", "+ age); //ADitya, 34
+		
+	}
+	
+	public static void main(String ar[]) {
+		
+	}
+}
+```
+
+## What will be the output
+```java
+package com.adi;
+
+public class Demo {
+
+	//static block
+	static {
+		System.out.println("Static block");		
+	}
+	
+	//instance block
+	{
+		System.out.println("Instance block");
+	}
+	
+	//constructor
+	Demo(){
+		System.out.println("Constructor");
+	}
+	
+	public static void main(String ar[]) {
+		System.out.println("Main method");
+		new Demo();
+	}
+}
+Static block
+Main method
+Instance block
+Constructor
+
+```
+
 
 
 
