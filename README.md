@@ -1157,7 +1157,7 @@ public class Demo {
 		
 		Demo d = new Demo();
 		d.name="ADitya";
-		age =34;
+		age =34; // we can easily initialize static variable inside static block
 		
 		System.out.println(d.name +", "+ age); //ADitya, 34
 		
@@ -1170,6 +1170,103 @@ public class Demo {
 ```
 
 ## What will be the output
+
+```java
+package com.adi;
+
+public class Demo {
+
+	//static block
+	static {
+		System.out.println("Static block");		
+	}
+	
+	public static final int x = 20;
+	
+	public static void main(String ar[]) {
+		System.out.println(Demo.x); // 20
+		//This is called compiler optimization, Compiler will do performance activity here. 
+		//In order to improve performance Demo.x is replace by 20 at compile time in dot class 
+		//file  since  x is final static in nature.
+		
+	}
+}
+```
+### 2nd
+```java
+package com.adi;
+
+public class Demo {
+
+	//static block
+	static {
+		System.out.println("Static block");		
+	}
+	
+	public static  int x = 20; // it's not final it's static in nature and whenever you try to approach this variable, the static block also get  executed.
+
+	
+	public static void main(String ar[]) {
+		System.out.println(Demo.x); 
+	}
+	static block
+	20
+}
+```
+### 3rd
+```java
+package com.adi;
+
+public class Demo {
+
+	//static block
+	static {
+		System.out.println("Static block");		
+	}
+	
+	public final  int x = 30;
+	
+	public static void main(String ar[]) {
+		System.out.println(new Demo().x);  //In order to call x, class is need to load by calling constructor so definately static block is going to execute.
+	}
+	
+	Static block
+	30
+}
+```
+## Following output
+
+```java
+package com.adi;
+
+public class Demo {
+
+	//static block
+	static {
+		System.out.println("Static block");		
+	}
+	
+	//instance initialization block
+	{
+		System.out.println("Instance block");
+	}
+	
+	//constructor
+	Demo(){
+		System.out.println("Constructor");
+	}
+	
+	public static void main(String ar[]) {
+		System.out.println("Main method"); //I am not creating the object of this class so constructor and instance block has not chance 
+		//so technically no instance is created so either constructor or instance block will not be executed here.
+		
+	}
+	
+	Static block
+	Main method
+}
+```
+### 2nd
 ```java
 package com.adi;
 
@@ -1192,7 +1289,9 @@ public class Demo {
 	
 	public static void main(String ar[]) {
 		System.out.println("Main method");
-		new Demo();
+		new Demo(); //Now you are creating object of this class so construtor and instance block will be executed.
+
+		// first instance block is geeting executed and then constructor this is order
 	}
 }
 Static block
@@ -1201,6 +1300,73 @@ Instance block
 Constructor
 
 ```
+# 14. How System.out.println() works internally in java?
+![Alt text](image-11.png)
+
+## 1st part
+System is a class  
+out is a refrence variable of PrintStream class  
+println() is a method of PrintStream class  
+
+out is a static variable so you can call via class name
+and you pass string arrgument
+![Alt text](image-12.png)
+
+## 2nd part :- How println() method work in PrintStream class?
+
+println() method -> internally calls writeln() method 
+
+writeln() method -> intrenally calls newLine() method
+
+newLine() method -> intrenally calls flushBuffer()  method and all stuffs.
+
+So in this way output is going to printed.
+
+## 3rd part:- Can we create an object of System class?
+![Alt text](image-13.png)
+No, Since  Not only System class is a final class  but also its constructor is also private.
+
+All the refrence variable present in System class are static in nature. So they can call directly with respect to class name.
+
+And  also variable are final in nature, so that once you assigned value to it no one can change.
+
+Eg: PrintStream in, PrintStream out and PrintStream err are static and final refrence variable present in System class.
+
+ 	 public static final PrintStream err = null;
+	  public static final PrintStream out = null;
+	   public static final InputStream in = null;
+
+## 4rth part:- 
+	public static final PrintStream out = null;   
+***Observe this :   out is set to null by default,
+so when you write System.out.println() it's null.sth leads to Null Pointer Exception. But in our case the value is going to printed***
+
+### So where out variable is getting initialized?
+The out variable is initialized internally by Jvm.
+
+In System class we have methods like   
+
+		setIn() for inputStream in and
+	     setOut()  for PrintStream out
+
+***When System class is loaded all it's refrence variable is loaded, then in order to initialize out variable Jvm internally calls setOut() method.By passing out variable as paramater.***
+
+The setOut() method interanally calls -> setOut0() method.
+
+the setOut0() method is a native method. A native method is sth which is written in C language.
+
+And the setOut0() method is called by JvmJni(java native interface ) in order to initialize out variable.
+
+
+
+
+
+
+
+
+
+
+
 
 
 

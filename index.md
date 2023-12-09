@@ -11,5 +11,6 @@
 # 11. How many String Objects will be created? String Object and String Constant pool
 # 12. Pass null argument with method overloading of String and Object types
 # 13. Top 10 Static & Instance block based interview question.
+# 14. How System.out.println() works internally in java?
 
 
