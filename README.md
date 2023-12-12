@@ -1459,8 +1459,323 @@ So you can create number of combinations of int and double just take care of byt
 
 Any classtype you can pass here.
 
-# Find duplicate element in an Array.
+# 16 Find duplicate element in an Array.
 
+## 1. via brute force mechanism
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+		
+		//String array
+		String[] infra = {"Amazon","GCP","Azure","Amazon","Ali Baba","SauceLabs","Azure","GCP"};
+		
+		System.out.println("*********brute force***********");
+		
+		for(int i=0;i<infra.length;i++) {
+			//here i will compare Amazon with GCP 
+			//so i is 0(Amazon) and j is i+1(GCP)
+			for(int j=i+1;j<infra.length;j++) {
+				
+				//if array[i] equals to arr[j] then duplicate element is found
+				if(infra[i].equals(infra[j])) {
+					System.out.println(infra[i]);
+				}
+			}
+		}
+	}
+}
+*********brute force***********
+Amazon
+GCP
+Azure
+
+```
+Time Complexity is n2 (due to outer loop and inner loop)
+## 2. via HashSet
+```java
+package com.adi;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+		
+		//String array
+		String[] infra = {"Amazon","GCP","Azure","Amazon","Ali Baba","SauceLabs","Azure","GCP"};
+		
+		System.out.println("*********Hash Set***********");
+		
+		//Create an object of Set
+		Set<String> data = new HashSet<>();
+		
+		//iterate array via forEach
+		for(String e : infra) {
+			
+			//Adds the specified element to this set if it is not already present 
+			//adds the specified element e to this set if the set contains no element e2 such that Objects.equals(e, e2). 
+			//If this set already contains the element, the call leaves the set unchanged and returns false
+			
+			//Means ye Set i.e data mein add() jab chalengi wo check karnega Amazon set mein add hai kya.. 
+			//nhi hai to Add karke true return karnega
+			//Next time jab Amazon aavenga.. wo Set mein add nhi kar pavenga... Aur false return karenga			
+			if(data.add(e) == false) {
+				System.out.println(e);
+			}
+		}
+	
+		//Remember HashSet do not store the duplicate elements.
+		
+	}
+}
+*********Hash Set***********
+Amazon
+Azure
+GCP
+
+```
+
+## 3. via HashMap
+HashMap store elements in Key-Value pair format.
+```java
+package com.adi;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+		
+		//String array
+		String[] infra = {"Amazon","GCP","Azure","Amazon","Ali Baba","SauceLabs","Azure","GCP"};
+		
+		System.out.println("*********Hash Map***********");
+		
+		//Key is store in the form of String
+		//how many repetation i.e Value in the form of Integer
+		Map<String, Integer> infraMap = new HashMap<String,Integer>();
+		
+		for(String e: infra) {
+			
+			//It HashMap(InfraMap) contains key then it will return it's value or null
+			Integer count = infraMap.get(e);
+			
+			if(count == null) {
+				//count = null means elment nahi hai HashMap mein so add it and value 1 dedo
+				infraMap.put(e, 1);
+			}else {
+				// yaha par count null nahi hai so again add element and increment count 
+				infraMap.put(e, ++count);
+			}
+			
+		}
+		
+		//Print duplicate element
+		//With this entrySet sari hashmap aa gyi
+		//iteration ke liye achaa
+		// entry set mein entry hoti hai
+		Set<Entry<String, Integer>> entrySet = infraMap.entrySet();
+		
+		for(Entry<String, Integer> entry : entrySet) {
+			
+			//yadi value 1 se jayda hai so duplicate hai
+			if(entry.getValue() > 1) {
+				
+				//print key
+				System.out.println(entry.getKey());
+			}
+		}
+		
+	}
+}
+*********Hash Map***********
+Azure
+GCP
+Amazon
+
+```
+## 4. via Stream  via Set & filter 
+```java
+package com.adi;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+		
+		//String array
+		String[] infra = {"Amazon","GCP","Azure","Amazon","Ali Baba","SauceLabs","Azure","GCP"};
+		
+		System.out.println("*********Stream via Set & filter***********");
+		
+		//Maintain a HashSet
+		//HashSet store unique elements
+		Set<String> dataSet = new  HashSet<>(); 
+		
+				
+		//Convert your String Array into list via asList() in order to apply Stream.
+		// Stream is apply on Collection basically
+		
+		//Regarding filter 
+		// hashSet(dataSet) has add() method
+		//   which give boolean value 
+		// if element is present then it will return false(not added that element)
+		//if element is not present then it will return true(added that element into Set)		
+		//			!dataSet.add(e) means add elements which are duplicate.
+		//    since filter method is  performing intermediate operation
+		
+		//Regarding collect
+		//  it perform terminal operation
+		//   collect everything into Set
+		
+		Set<String> dupliSet = Arrays.asList(infra).stream()
+					.filter(e -> !dataSet.add(e))
+					.collect(Collectors.toSet());
+		
+		System.out.println(dupliSet);
+
+		
+	}
+}
+*********Stream via Set & filter***********
+[Azure, GCP, Amazon]
+```
+## 5. Stream via groupingBy
+```java
+package com.adi;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+		
+		//String array
+		String[] infra = {"Amazon","GCP","Azure","Amazon","Ali Baba","SauceLabs","Azure","GCP"};
+		
+		System.out.println("*********Stream via groupingBy***********");
+		
+		//Convert it into List
+		// Since stream can be apply on collections
+		
+		//Here we use groupingBy- classifier
+		// basically grouping object by some property
+		
+		// About Funciton.identity() 
+		//  Returns a function that always returns its input argument.
+		
+		// About Collectors.counting()
+		// Returns a Collector accepting elements of type T that counts the number of input elements.
+		//   Basically it will count the number of elements
+		
+		// About entrySet() 
+		//   covert everything into entrySet
+		//    Remember in Key is unique in entrySet value means number of repeatation.
+		
+		//filter(e -> e.getValue()>1)
+		//  compare entrySet value is greater than 1 then it's duplicate
+		
+		//map(Map.Entry::getKey);
+		// satisfied condition fetch the key 
+		
+		// collect them in Set
+		
+		Set<String> eleSet = 
+				Arrays.asList(infra)
+				   .stream()
+					.collect(Collectors.groupingBy(Function.identity(),Collectors.counting()))
+					.entrySet()
+					 .stream()
+					  .filter(e -> e.getValue()>1)
+					   .map(Map.Entry::getKey)
+					    .collect(Collectors.toSet());
+		
+		
+		System.out.println(eleSet);
+		
+		/*
+		 * Convert your String[] i.e infra into ArrayList
+		 *   Getting a list  then taking a stream
+		 *    put a Collection over here
+		 *  means grouping By Function.identity() means
+		 *    from stream source keep collecting data and 
+		 *      group on the basis of identity and keep counting it.
+		 *    means it maintain the counting also( key(identity) and it's counting)
+		 *      and then give me entrySet() out of it
+		 *   it will generate internal map here containing (key and value)
+		 *     use stream () on it and filter
+		 *   filter you write on the basis of Stream e.getValue() > 1 means duplicate element
+		 * we use map Map.Entry calling getKey which satisfy the condition
+		 *   and finally collect the set over here.   		 *
+		 * */
+	}
+}
+*********Stream via groupingBy***********
+[Azure, GCP, Amazon]
+
+```
+## 6. via Stream using frequency
+```java
+package com.adi;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+		
+		//String array
+		String[] infra = {"Amazon","GCP","Azure","Amazon","Ali Baba","SauceLabs","Azure","GCP"};
+		
+		System.out.println("*********Stream via frequency ***********");
+		
+		//Convert your array into list and apply Stream
+		
+		//About frequency()
+		// Returns the number of elements in the specified collection equal to the specified
+		//   object. 
+		// returns the number of elements e in the collection 
+		// Require 2 things
+		//  collection on which frequency determine and  on which object e i.e  on all object
+		//   if frequency is greater than 1
+		
+		// collect it into Set
+		
+		List<String> list = Arrays.asList(infra);
+			  
+		Set<String> eleList = 
+				list.stream()
+					 .filter(e -> Collections.frequency(list, e) > 1)
+					  .collect(Collectors.toSet());
+		
+		System.out.println(eleList);
+	}
+}
+*********Stream via frequency ***********
+[Azure, GCP, Amazon]
+
+```
+# 17. Star pattern Logic- Part1
 
 
 
