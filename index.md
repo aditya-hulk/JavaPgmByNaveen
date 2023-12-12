@@ -15,4 +15,9 @@
 # 15. Maximum number of method parameter allow in java.
 # 16 Find duplicate element in an Array.
 # 17. Star pattern Logic- Part1
+# 18 star patter part-2
+# 19. Pyramid pattern logic
+# 20. Alphabetic pattern logic
+# 23. Alphabetic logic pattern Part-5
+
 

@@ -1845,12 +1845,174 @@ Output:
  * 
 
 ```
-
+## Require this pattern:
 ![Alt text](image-36.png)
 
+slightly change in code.
+![Alt text](image-37.png)
+
+# 18 star patter part-2
+![Alt text](image-38.png)
+
+![Alt text](image-39.png)
+
+![Alt text](image-40.png)
+
+![Alt text](image-41.png)
+
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+		
+		
+		for(int i=1; i<=4; i++) {
+			
+			for(int j=3; j >=i; j--) {
+				
+				System.out.print("-");
+			}
+			
+			for(int k=1;k<=i;k++) {
+				System.out.print("*");
+			}
+			
+			System.out.println();
+		}
+
+	}
+}
+Output:
+---*
+--**
+-***
+****
 
 
+```
 
+# 19. Pyramid pattern logic
+![Alt text](image-42.png)
+![Alt text](image-44.png)
+
+![Alt text](image-43.png)
+
+![Alt text](image-45.png)
+
+# 20. Alphabetic pattern logic
+![Alt text](image-46.png)
+
+![Alt text](image-47.png)
+
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		int alpha = 65;
+		for (int i = 0; i <= 5; i++) {
+
+			for (int j = 0; j <= i; j++) {
+
+				System.out.print((char) (alpha + j) + " ");
+			}
+
+			System.out.println();
+		}
+
+	}
+}
+Ouput:
+A 
+A B 
+A B C 
+A B C D 
+A B C D E 
+A B C D E F 
+
+```
+## If you want to print pyramid having small a
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		int alpha = 97;
+		for (int i = 0; i <= 5; i++) {
+
+			for (int j = 0; j <= i; j++) {
+
+				System.out.print((char) (alpha + j) + " ");
+			}
+
+			System.out.println();
+		}
+
+	}
+}
+Output:
+a 
+a b 
+a b c 
+a b c d 
+a b c d e 
+a b c d e f 
+
+```
+# 23. Alphabetic logic pattern Part-5
+
+![Alt text](image-48.png)
+
+![Alt text](image-49.png)
+
+![Alt text](image-50.png)
+
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		int alpha = 65;
+		for (int i = 0; i <= 5; i++) {
+
+			for (int j = 0; j <= i; j++) {
+
+				System.out.print((char) (alpha) + " ");
+			}
+			
+			alpha++;
+			
+			System.out.println();
+		}
+
+	}
+}
+Output:
+A 
+B B 
+C C C 
+D D D D 
+E E E E E 
+F F F F F F 
+```
+
+## If you won't increment alpha what happened
+![Alt text](image-51.png)
+
+![Alt text](image-52.png)
+
+![Alt text](image-53.png)
+
+## A-Z Askii range - 65 to 90  
+## a-z range is 97 to 122 
 
 
 
