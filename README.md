@@ -1776,6 +1776,79 @@ public class Demo {
 
 ```
 # 17. Star pattern Logic- Part1
+![Alt text](image-29.png)
+![Alt text](image-30.png)
+
+we have to start with 2 outer loop, 1 is for row and anotherone is for column.
+
+outer loop -set limit  
+inner loop - always depend upon outer loop  
+
+row is also increasing i.e i++  
+if you see the dig- col is increase i.e j++
+
+![Alt text](image-31.png)
+
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+		
+		for(int i=0; i<=4; i++) {
+			for(int j=0; j<=i; j++) {
+				System.out.print(" * ");
+			}
+			System.out.println();
+		}
+	}
+}
+Output:
+ * 
+ *  * 
+ *  *  * 
+ *  *  *  * 
+ *  *  *  *  * 
+
+```
+## Wrong logic
+![Alt text](image-32.png)
+
+## Reverse pattern
+![Alt text](image-33.png)
+
+![Alt text](image-34.png)
+
+![Alt text](image-35.png)
+
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+		
+		for(int i=0; i<=4; i++) {
+			for(int j=4; j>=i; j--) {
+				System.out.print(" * ");
+			}
+			System.out.println();
+		}
+	}
+}
+Output:
+ *  *  *  *  * 
+ *  *  *  * 
+ *  *  * 
+ *  * 
+ * 
+
+```
+
+![Alt text](image-36.png)
+
+
 
 
 
