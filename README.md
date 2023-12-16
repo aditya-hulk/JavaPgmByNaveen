@@ -2014,9 +2014,472 @@ F F F F F F
 ## A-Z Askii range - 65 to 90  
 ## a-z range is 97 to 122 
 
+# 21. How to print count of duplicate character from String?  Hackerrank
+![Alt text](image-54.png)
+
+3 important condition  
+1) when string is null
+2) when given string is empty
+3) when given string has 1 character or lenght is 1 then return nothing.
+
+```java
+package com.adi;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		printDuplicateCharacters("JavavavaJJ");
+		printDuplicateCharacters(null);
+		printDuplicateCharacters("A");
+		printDuplicateCharacters("");
+	}
+	
+	public static void printDuplicateCharacters(String str) {
+		
+		if(str == null) {
+			System.out.println("Null String");
+			return ; // return nothing
+		}
+		
+		if(str.isEmpty()) {
+			System.out.println("Empty String");
+			return ;
+		}
+		
+		if(str.length() == 1) {
+			System.out.println("Single char String");
+			return ;
+		}
+		
+		// To find duplicate character in a string
+		//convert it into Character array by toCharArray()
+		
+		char[] wordsArray = str.toCharArray();
+		
+		
+		//Creating HashMap where as key is Character and Value(how many time the character apperas) as Integer
+		
+		Map<Character, Integer> charMap = new HashMap<>();
+		
+		
+		//Travers charArray via for loop
+		
+		for(Character ch : wordsArray) {
+			//map has containsKey() 
+			//Returns true if this map contains a mapping for the specified key.
+			
+			if(charMap.containsKey(ch)) {
+				
+				// map.get(key) return value 
+				// whatever value return increment it by 1.
+				charMap.put(ch, charMap.get(ch) + 1);
+			}
+			else {
+				charMap.put(ch, 1);
+			}
+		}
+		
+		
+		//print here
+		// take entrySet out of Map
+		Set<Map.Entry<Character, Integer>> entrySet = charMap.entrySet();
+		
+		//Take 1 entry out of  set of entrySet
+		for(Map.Entry<Character, Integer> en : entrySet) {
+			
+			if(en.getValue() > 1) {
+				System.out.println(en.getKey() + " : " + en.getValue());
+			}
+		}
+		
+		
+	}
+}
+Ouptut:
+a : 4
+v : 3
+J : 3
+Null String
+Single char String
+Empty String
+```
+
+### Always handle null check at first place immediately.
+
+# 22. Count the occurences of a charcter in a String.
+
+String str = "I love coding";  
+how many time o comes  
+o : 2  
+I : 1  
+
+## Here you can add null check, empty string, also single char string.
+## via charArray  --- for loops
+
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		String str = "I love coding";
+		
+		//maintain 1 character count
+		int count = 0;
+		
+		for(char ch : str.toCharArray()){
+			
+			if(ch == 'o') {
+				count++;
+			}
+		}
+		
+		System.out.println("o : "+ count); //o : 2
+		
+	}		
+}
+```
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+		String str = "I love coding";
+		
+		getCharOccurence(str, 'o'); //o : 2
+
+	}
+	
+	public static void getCharOccurence(String str, char value) {
+
+		// maintain 1 character count
+		int count = 0;
+
+		for (char ch : str.toCharArray()) {
+
+			if (ch == value) {
+				count++;
+			}
+		}
+
+		System.out.println(value + " : " + count);
+	}
+
+}
+```
+
+## via str.len -- charAt(i)
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+		String str = "I love coding and testing";
+
+		getCharCount(str, 'i'); // i : 2
+	}
+
+	public static void getCharCount(String str, char value) {
+
+		int count = 0; // maintain a counter
+
+		for (int i = 0; i < str.length(); i++) {
+
+			if (str.charAt(i) == value) {
+				count++;
+			}
+		}
+
+		System.out.println(value + " : " + count);
+	}
+}
+```
+## via streams
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+		String str = "I love coding and testing";
+
+		// String.char() method give IntStream (integer stream- primitive stream)
+		//  since we can't apply Stream on String so we need to convert them to Collections
+		
+		//mapToObject() - It will map object to Stream
+		//Returns an object-valued Stream consisting of the results 
+		  //of applying the given function to the elements of this stream. 
+		
+		//String.valueOf()
+		  //Returns the string representation of the Object argument.
+		//String.valueOf(iNum): Returns the string representation of int iNum.
+		
+		//typecaset means e is not object , e is charcter and 
+		// we convert charcter into String.
+		
+		//then filter it e.equals("i") 
+		//here  e is object it's value is i and 
+		//"i" --> String  i.e object whose value is i
+		// so compare and  count it.
+		
+		long count = str.chars()
+			.mapToObj(e -> String.valueOf((char)e))
+				.filter(e -> e.equals("i"))
+				 .count();
+		 
+		System.out.println( " i : " + count); // i : 2
+
+	}
+
+}
+```
+
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+		String str = "I love coding and testing";
+
+		getCharCountUsingStreams(str,"i"); //i : 2
+
+	}
+
+	public static void getCharCountUsingStreams(String str,String value) {
+		
+		long count = str.chars()
+				.mapToObj(e -> String.valueOf((char)e))
+					.filter(e -> e.equals(value))
+					 .count();
+			 
+			System.out.println(value + "  : " + count); 
+		
+	}
+}
+```
+
+## via ApacheCommon StringUtils 
+we require apache commons lib
+
+jar file issue... so i used maven project and add this dependency
+![Alt text](image-55.png)
+
+```java
+package com.adi.rest;
+
+import org.apache.commons.lang3.StringUtils;
+
+public class Test {
+	public static void main(String a[]) {
+		
+		String str = "I love coding";
+		
+		int count = StringUtils.countMatches(str, "o");
+		
+		System.out.println("o : "+ count); // o:2
+	}
+}
+
+```
+# 24. What will be the output for the following?
+
+```java
+package com.adi;
+
+public class Test {
+
+	public static void main(String arg[]) {
+
+		int i = (byte) + (char) - (int) + (long) - 1;
+		
+		/*
+		 * here it will start from right to left
+		 * 
+		 * 	(byte) + (char) - (int) + (long) - 1;
+		 *    long - 1 ==> -1 is casted into long ()  so it will give  -`1
+		 *    
+		 *    (byte) + (char) - (int)  - 1;
+		 *    int - 1 ==> again 1 is converted into int so -1
+		 *    
+		 *    (byte) + (char) - * - 1
+		 *    (byte) + (char) + 1
+		 *    char -1 * -1 = char + 1 ==> + 1 not harm anything 1
+		 *    
+		 *    (byte)  + 1
+		 *    byte + 1 ==> 1 only given 
+		 * */
+		System.out.println(i); // 1
+		
+		long j = (long) - 1;
+		System.out.println(j); // -1 
+		
+		int k = - (int) - 1;
+		System.out.println(k); //1 
+		
+		int l = (int) - 1;
+		System.out.println(l); // -1 
+		
+		int m = (char) + 1;
+		System.out.println(m); // 1
+		
+		int n = (byte) + 1;
+		System.out.println(n); // 1 
+		
+		
+	}
+}
+
+```
+
+# 25. How to escape special characters in java?
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+	
+		// 1)  Print /"hello"/
+		
+//		System.out.println("/"hello"/"); // Invalid Assignment operator
+		System.out.println("/\"hello\"/"); //   /"hello"/
+		
+		// 2) print /'hello'/
+		System.out.println("/'hello'/");  // /'hello'/		
+		// 3) print '/'hello'/'
+		System.out.println("'/'hello'/'"); //  '/'hello'/'
+		
+		//4) "/'hello'/"
+		System.out.println("\"/'hello'/\"");  // "/'hello'/"
+		
+		//5) "hello"
+		System.out.println("\"hello\""); // "hello"
+		
+		// 6) I love "java" & "programming"
+		System.out.println("I love \"java\" & \"programming\""); // I love "java" & "programming"
+		
+		//7) 'I love "java" & "ram"'
+		System.out.println("'I love \"java\" & \"ram\"'"); // 'I love "java" & "ram"'
+		
+		//8) //input[@id='name'] for method
+		System.out.println(getXpath("Aditya")); // input[@id='name']
+		
+		//9) //input[@id='name'] for method
+		System.out.println(getXXpath("Aditya")); // input[@id='Aditya']
+	}
+	
+	public static String getXpath(String name) {
+		String xpath = "//input[@id='name']";
+		
+		return xpath;		
+	}
+	
+	public static String getXXpath(String name) {
+		String xpath = "//input[@id='"+name+"']";
+		
+		return xpath;		
+	}
+
+}
+```
+# 26. Create a language Translator & Autobots || Reflection in java
+
+English to German tranlate  
+Hello Aditya  - Hallo Aditya  
+Good morning Aditya - Guten Morgen Aditya
+
+if you write sth it will reply you back.
 
 
+### This code is won't work in java 17. we have run it in older version currently exception happen. Try will lower version.
 
+```javapackage com.adi;
+
+import java.lang.reflect.Field;
+
+public class Demo {
+
+	// create a field variable here
+	// use reflection
+	// fetch String class value
+	// setAccessible() value true
+	// so that you can change the value of string
+	static {
+
+		try {
+			Field value = String.class.getDeclaredField("value");
+
+			value.setAccessible(true);
+
+			value.set("Hello Aditya", value.get("Hallo Aditya"));
+
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void main(String ar[]) {
+
+		System.out.println("Hello Aditya");
+
+	}
+}
+Output:
+
+Hallo Aditya but we face an exception
+
+```
+
+# 27. Can we executes comments in java?
+
+![Alt text](image-56.png)
+
+![Alt text](image-57.png)
+
+![Alt text](image-58.png)
+
+unicode character - carriage return representing new line
+
+# 28. What will be the output when you compare site url with it's ip address.
+
+```java
+package com.adi;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		try {
+			
+			//write proper url with proper ip address
+			System.out.println(new URL("https://app.hubspot.com").equals(new URL("https://104.19.154.83"))); //true
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+
+	}
+}
+```
 
 
 

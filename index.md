@@ -19,5 +19,12 @@
 # 19. Pyramid pattern logic
 # 20. Alphabetic pattern logic
 # 23. Alphabetic logic pattern Part-5
+# 21. How to print count of duplicate character from String?  Hackerrank
+# 22. Count the occurences of a charcter in a String.
+# 24. What will be the output for the following?
+# 25. How to escape special characters in java?
+# 26. Create a language Translator & Autobots || Reflection in java
+# 27. Can we executes comments in java?
+# 28. What will be the output when you compare site url with it's ip address.
 
 
