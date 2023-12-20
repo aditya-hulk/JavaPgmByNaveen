@@ -2480,12 +2480,81 @@ public class Demo {
 	}
 }
 ```
+# 29. Find out missing number in an integer array.
 
+humko ek integer array diya hai and find out which element is missing
+![Alt text](image-59.png)
 
+```java
+package com.adi;
 
+public class Demo {
 
+	public static void main(String ar[]) {
 
+		int num[] = { 1, 2, 3, 5 };
 
+		int j = findMissingNumber(num, 5);
+		
+		System.out.println("Number missing is = "+j); //Number missing is = 4
+
+	}
+
+	// Give me array and give me total Number of count that i am expecting
+	
+	public static int findMissingNumber(int[] num, int totalCount) {
+
+		int expectedSum = totalCount * ((totalCount + 1) / 2);
+
+		int actualSum = 0;
+
+		// traverse array in order to find summation.
+		
+		for (int i : num) {
+
+			actualSum += i;
+		}
+		return expectedSum - actualSum;
+	}
+}
+```
+# 30. How to find length of String in java without using length() method.
+
+## via toCharArray().length property
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		String str = "testing";
+		
+		//Convert String into Character array and use it's length property/variable. 
+		System.out.println(str.toCharArray().length); // 7
+	}
+
+}
+```
+
+## via lastIndexOf() 
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		String str = "testing";
+		
+		//find lastIndexOf nothing can give you length of String
+		
+		System.out.println(str.lastIndexOf(""));//7
+	}
+
+}
+```
+## via 
 
 
 
