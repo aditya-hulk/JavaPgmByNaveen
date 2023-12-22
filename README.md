@@ -2554,13 +2554,1122 @@ public class Demo {
 
 }
 ```
-## via 
+## via Regular Expression
+```java
+package com.adi.rest;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+	
+		String str = "testing";
+		
+		//Compiles the given regular expression into a pattern.
+		 // $ - Matches the end of input.
+		
+		// matcher = Creates a matcher that will match the given input 
+		//   against this pattern
+				
+		Matcher matcher = Pattern.compile("$").matcher(str);
+
+		
+		//return true if, and only if, a subsequence of the input sequence 
+		//    matches this matcher's pattern
+		
+		
+		//If the match succeeds then more information can be obtained 
+		   //via the start, end, and group methods. 
+				
+		matcher.find();
+		
+		//If matches then via end() we can find the length of String.
+		int length = matcher.end();
+		
+		System.out.println("The length of String is : "+ length); //The length of String is : 7
+		
+		
+	}
+
+}
+```
+
+## via split() method
+```java
+package com.adi.rest;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+	
+		String str = "testing";
+		
+		//split on the basis of nothing
+		// it will give you string array 
+		// and via length property we can find length
+		System.out.println(str.split("").length); // 7
+	}
+
+}
+
+```
+
+## via normal for-loop and count
+```java
+package com.adi.rest;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+	
+		String str = "testing";
+		
+		int count = 0;
+		
+		//str.toCharArray() return character array
+		//  via forEach loop increase count 
+		
+		for(char ch : str.toCharArray()) {
+			count ++;
+		}
+		
+		System.out.println(count); // 7
+	}
+
+}
+
+```
+## via try-catch block use charAt() and while loop in  method
+```java
+package com.adi.rest;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+	
+		String str = "testing";
+		
+		int lenth = getLenth(str);
+		
+		System.out.println(lenth); // 7
+	}
+	
+	public static int getLenth(String str) {
+		
+		int i = 0;
+		
+		try {
+			while(true) {
+				
+				//charAt(index) - it will give charcter available at i position
+				str.charAt(i);
+				
+				//i increase so when reach at end of String 
+				// throw an IndexOutOfBoundException
+				i++;
+			}
+		}catch (Exception e) {
+				
+			return i;
+		}
+		
+	}
+
+}
+
+```
+
+```java
+package com.adi.rest;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+	
+		String str = "testing";
+		
+		 getLenth(str);
+	}
+	
+	public static void getLenth(String str) {
+		
+		int i = 0;
+		
+		try {
+			while(true) {
+				
+				//charAt(index) - it will give charcter available at i position
+				str.charAt(i);
+				
+				//i increase so when reach at end of String 
+				// throw an IndexOutOfBoundException
+				i++;
+			}
+		}catch (Exception e) {
+				
+			System.out.println(i); //7
+		}
+		
+	}
+
+}
+
+```
+
+## via getBytes() method
+```java
+package com.adi.rest;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+
+		String str = "testing";
+		
+		int leng = 0;
+		
+		try {
+			//Encodes this String into a sequence of bytes using theplatform's
+			 //   default charset, storing the result into a new byte array.
+			
+			//Big-Endian (BE) / Little-Endian (LE) are two ways to organize 
+			   //multi-byte words  -- study require to dig deep.
+			
+			
+			leng = str.getBytes("UTF-16BE").length/2;
+			
+		} catch (Exception e) {
+			
+		}
+		
+		System.out.println(leng); //7
+	}
+}
+
+```
+## via method use spilit()
+
+```java
+package com.adi.rest;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+
+		String str = "testing";
+	
+		System.out.println(getStringLength(str)); // 7
+	}
+	
+	public static int getStringLength(String str) {
+		
+		String[] st = str.split("");
+		
+		int count = 0;
+		
+		for(String s : st) {
+			
+			//It will give length of s everytime increase by 1
+			count += s.toCharArray().length;
+		}
+		
+		return count;
+				
+	}
+}
+
+```
+
+```java
+package com.adi.rest;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+
+		String str = "testing";
+	
+		System.out.println(getStringLength(str)); // 7
+	}
+	
+	public static int getStringLength(String str) {
+		
+		String[] st = str.split("");
+		
+		int count = 0;
+		
+		for(String s : st) {
+			
+			
+			count ++;
+		}
+		
+		return count;
+				
+	}
+}
+
+```
+
+# 31. What is StringJoiner  or Combine multiple String in one.
+
+```java
+package com.adi.rest;
+
+import java.util.StringJoiner;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+
+		//Join Separate string in one by StringJoiner (1.8)
+		//  combine diff list of emp name, stud name etc 
+		// separte by delimeter
+		
+		//Tom,Lisa,Naveen
+		
+		StringJoiner joiner = new StringJoiner(",", "[", "]");
+		
+		joiner.add("Tom")
+				.add("Lisa")
+					.add("Naveen")
+					 .add("Aditya");
+		
+		//To print use toString()method
+		System.out.println(joiner.toString());
+		
+		
+		
+	}
+
+}
+Output:
+[Tom,Lisa,Naveen,Aditya]
+```
+
+```java
+package com.adi.rest;
+
+import java.util.StringJoiner;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+
+		StringJoiner joiner = new StringJoiner(";", "{", "]");
+
+		joiner.add("Tom")
+				.add("Lisa")
+				  .add("Naveen").add("Aditya");
+
+		System.out.println(joiner.toString()); // {Tom;Lisa;Naveen;Aditya]
 
 
+	}
+
+}
+
+```
+# 32. Count the number of occurence of a character in a String using java8 stream.
+
+```java
+package com.adi.rest;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+
+		String str = "Testing solutions";
+		
+		//When you want to apply Stream on String use char() method
+		   // It will return IntStream - now you perform your operation
+		
+		// In filter() 
+		      // get any element 
+		        // then convert it into charcter 
+		// which occurence you are looking for compare that.
+		
+		long count = str.chars()
+						  .filter(e ->(char)e == 'i')
+						  	.count();
+		
+		System.out.println("i : "+ count); //i:2
+		
+	}
+
+}
+
+```
+```java
+package com.adi.rest;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+
+		String str = "Testing solutions";
+		
+		//if you want to check multiple occurences
+		long count = str.chars()
+						  .filter(e ->(char)e == 'i' ||  (char)e == 's' )
+						  	.count();
+		
+		System.out.println("i & s : "+ count); // i & s : 5
+		
+	}
+
+}
+```
+
+## via generic method
+```java
+package com.adi.rest;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+
+		String str = "Testing solutions";
+		
+		System.out.println(getCharCount(str, 'i')); // 2
+
+	}
+
+	public static long getCharCount(String str, char ch) {
+
+		return str.chars()
+					.filter(e -> (char) e == ch)
+						.count();
+				
+	}
+}
+
+```
+
+## overload this method
+```java
+package com.adi.rest;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+
+		String str = "Testing solutions";
+		
+		System.out.println(getCharCount(str, 'i','s')); // 5
+
+	}
+
+	public static long getCharCount(String str, char ch) {
+
+		return str.chars()
+					.filter(e -> (char) e == ch)
+						.count();
+				
+	}
+	
+	public static long getCharCount(String str, char ch1, char ch2) {
+
+		return str.chars()
+					.filter(e -> (char) e == ch1  || (char) e == ch2 )
+						.count();
+				
+	}
+}
+
+```
+# 33. Vowel count within a String; Via Java, Java8 streams, & Google Guvava
+
+## via java
+```java
+package com.adi.rest;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+		
+		String str = "aeiouAEIOU";
+		
+		// we have to count the vovel in given string
+		int count =0;
+		
+		for(int x=0; x< str.length(); x++) {
+			
+			if(isVovel(str.charAt(x))) {
+				count ++;
+			}
+		}
+		
+		System.out.println(count); // 10
+		
+	}
+	
+	public  static boolean isVovel(char t) {
+		
+		return t=='a' || t=='e' || t=='i' || t=='o' || t=='u' 
+		  || t == 'A' || t == 'E' || t == 'I' || t == 'O' || t == 'U';			
+		
+	}
+}
+```
+## via Java8
+```java
+package com.adi.rest;
+
+import java.util.function.IntPredicate;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+		
+		String str = "aeiouAEIOU";
+		
+		//Represents a predicate (boolean-valued function) of 
+		    //  one int-valued argument
+		
+		IntPredicate vovel = new IntPredicate() {
+			
+			@Override
+			public boolean test(int x) {
+				
+				//here we check vovels logic
+				
+				return x=='a' || x=='e' || x=='i' || x=='o' || x=='u' ||
+						x=='A' || x=='E' || x=='I' || x=='O' || x=='U';				
+			}
+		};
+		
+		//give IntStream str.chars()
+		long count = str.chars()
+			             .filter(vovel)
+			               .count();
+		
+		System.out.println(count); // 10
+	}	
+}
+
+```
+## via Google Guvava library
+Add dependency
+![Alt text](image-60.png)
+```java
+package com.adi.rest;
+
+import com.google.common.base.CharMatcher;
+
+public class Test1 {
+
+	public static void main(String[] args) {
+		
+
+		String st = "Java example";
+		
+		// CharMatcher  = Determines a true or false value for any Java char value, just as Predicate does for any Object. 
+		//  .anyOf()  = Returns a bogus matcher if the sequence contains supplementary characters.
+		//    .countIn()  - Returns the number of matching chars found in a character sequence. 
+	
+		
+		int countIn = CharMatcher.anyOf("aeiouAEIOU").countIn(st);
+
+		System.out.println(countIn);  // 5 
+	}
+
+}
+
+```
+
+# 34. Join two arrays in java
+![Alt text](image-61.png)
+
+## via Java8
+```java
+package com.adi;
+
+import java.util.Arrays;
+import java.util.stream.Stream;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		String[] batsman = {
+					"Rohit",
+					"Virat",
+					"Dhawan",
+					"Shreyas",
+					"Rishabh",
+					"Shubman" };
+		
+		String[] bowlers = {
+					"Hardik",
+					"Bhuvi",
+					"Bumrah",
+					"Chahal",
+					"Jaddu" };
+		
+		
+	//Convert array into Stream via Arrays.stream method
+		
+		Stream<String> sBat = Arrays.stream(batsman);
+		Stream<String> sBow = Arrays.stream(bowlers);
+		
+		
+	//Now concat it via Stream.concat()
+	  //Then convert into combine array via toArray()
+		// create a new String array by providing size to it
+		
+		String[] fullTeam = Stream.concat(sBat, sBow)
+									.toArray(size -> new String[size]);
+		
+		
+		//Print 
+		for(String s : fullTeam) {
+			System.out.println(s);
+		}
+	}
+
+}
+Output: 
+Rohit
+Virat
+Dhawan
+Shreyas
+Rishabh
+Shubman
+Hardik
+Bhuvi
+Bumrah
+Chahal
+Jaddu
+```
+## via Goggle guvava lib - for object Arrays
+```java
+package com.adi.rest;
+
+import com.google.common.collect.ObjectArrays;
+
+public class Test1 {
+
+	public static void main(String[] args) {
+		
+		String[] batsman = {
+				"Rohit",
+				"Virat",
+				"Dhawan",
+				"Shreyas",
+				"Rishabh",
+				"Shubman" };
+	
+	String[] bowlers = {
+				"Hardik",
+				"Bhuvi",
+				"Bumrah",
+				"Chahal",
+				"Jaddu" };
+	
+
+	//concat require 3 things
+		// 1st array 2nd array and type of final array
+	
+		String[] allTeam = ObjectArrays.concat(batsman, bowlers,String.class);
+		
+		for(String s : allTeam) {
+			System.out.println(s);
+		}
+	}
+
+}
+Output:
+Rohit
+Virat
+Dhawan
+Shreyas
+Rishabh
+Shubman
+Hardik
+Bhuvi
+Bumrah
+Chahal
+Jaddu
+```
+### what if primitive arrays
+```java
+package com.adi.rest;
+
+import com.google.common.primitives.Ints;
+
+public class Test1 {
+
+	public static void main(String[] args) {
+		
+		int p1[] = {1,2,3,4,5};
+		int p2[] = {6,7,8,9,10};
+		
+		//For concat this primitive arrays in google guvava
+		
+		int[] p3 = Ints.concat(p1,p2);
+		
+		//print
+		for(int i :p3) {
+			System.out.println(i);
+		}
+	}
+
+}
+Ouptut:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+```
+# 35. Calculate average of arrays using Simple loop, java8 & google guvava lib
+
+![Alt text](image-62.png)
+
+## via Simple loop
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		int num[] = {1,2,3,4,5,3,2,3,4};
+		
+		//Avg = Sum of all the number / array length
+		
+		int total = 0;
+		
+		for(int e : num) {
+			total += e;			
+		}
+		
+		System.out.println("total is : "+ total); // 27
+		System.out.println("avg is : "+ (total/num.length)); // avg is : 3
+	}
+}
+```
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		int num[] = {1,2,3,4,5,3,2,3,4};
+		
+		//Avg = Sum of all the number / array length
+		
+		double total = 0;
+		
+		for(int e : num) {
+			total += e;			
+		}
+		
+		System.out.println("total is : "+ total); // 27
+		System.out.println("avg is : "+ (total/num.length)); // avg is : 3.0
+	}
+}
+```
+## via java8
+```java
+package com.adi;
+
+import java.util.Arrays;
+import java.util.OptionalDouble;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		int num[] = {1,2,3,4,5,3,2,3,4};
+		
+		//Convert arrays in stream via Arrays.stream
+		
+		OptionalDouble average = Arrays.stream(num)
+										 .average();
+		
+		System.out.println("avg is : "+ average); // avg is : OptionalDouble[3.0]
+		
+		System.out.println("avg is : "+ average.getAsDouble()); // avg is : 3.0
+	}
+}
+```
+## via google guvava lib
+```java
+package com.adi.rest;
+
+import com.google.common.math.DoubleMath;
+
+public class Test1 {
+
+	@SuppressWarnings("deprecation")
+	public static void main(String[] args) {
+		
+		int num[] = {1,2,3,4,5,3,2,3,4};
+		
+		//A class for arithmetic on doubles that is not covered by java.lang.Math.
+		//Returns the arithmetic mean of values. 
+		
+		double avg = DoubleMath.mean(num);
+		
+		System.out.println("Avg is : "+avg); //Avg is : 3.0
+	}
+
+}
+
+```
+
+# 36. Get the count of words from Capitalize String.
+
+![Alt text](image-63.png)
+
+## 1st
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+		
+//Capitalized String - first leter is in Capital letter
+		
+		String str = "NaveenAutomationLabsYoutube";
+		
+		int count = 0;
+		
+		for(int i=0; i < str.length(); i++) {
+			
+			if(str.charAt(i) >= 'A' && str.charAt(i) <= 'Z') {
+				count++;
+			}
+		}
+		
+		System.out.println(count); //4
+		
+	}
+}
+```
+
+## 2nd via askii value
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		String str = "NaveenAutomationLabsYoutubeTestingJavaphython";
+
+		int count = 0;
+
+		for (int i = 0; i < str.length(); i++) {
+
+			if (str.charAt(i) >= 65 && str.charAt(i) <= 90) {
+				count++;
+			}
+		}
+
+		System.out.println(count); // 6
+
+	}
+}
+```
+
+## 3rd via isUpperCase() in Character class
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		String str = "NaveenAutomationLabsYoutubeTestingJavaphython";
+
+		int count = 0;
+
+		for (int i = 0; i < str.length(); i++) {
+
+			if(Character.isUpperCase(str.charAt(i))) {
+				count++;
+			}
+		}
+
+		System.out.println(count); // 6
+
+	}
+}
+```
+## 4rth via Streams
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		String str = "NaveenAutomationLabsYoutubeTestingJavaphython";
+
+		//Convert string into Stream via chars()
+		
+		long count = str.chars()
+						  .filter(e -> (e>=65 && e<=90))
+						    .count();
+		
+		System.out.println(count); // 6
+
+	}
+}
+```
+## 5th 
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		String str = "NaveenAutomationLabsYoutubeTestingJavaphython";
+
+		//Convert string into Stream via chars()
+		
+		long count = str.chars()
+						  .filter(e -> Character.isUpperCase(e))
+						    .count();
+		
+		System.out.println(count); // 6
+
+	}
+}
+```
+
+## 6th via regular expression
+```java
+package com.adi;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		String str = "NaveenAutomationLabsYoutubeTestingJavaphython";
+
+		//Take complete range from Capital A to Z [A-Z]
+		// + any kind of character between A-Z i want
+		String reg = "[A-Z]+";
+		
+		
+		Pattern patternRef = Pattern.compile(reg);
+		
+		//match with this string 
+		  //it will return mather Refrence
+		Matcher matcher = patternRef.matcher(str);
+		
+		int count =0;
+		
+		//If this mathcher is available
+		while(matcher.find()) {
+			
+			//Capturing groups are indexed from left to right, 
+			  //starting at one.
+			   //Group zero denotes the entire pattern, 
+			count += matcher.group(0).length();
+		}
+		
+		System.out.println(count); //6
+	}
+}
+```
+
+## what if there is a small String over begning
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		String str = "thisNaveenAutomationLabsYoutubeTestingJavaphython";
+
+		//if small word is at the begining
+		int count  =0;
+		if(Character.isLowerCase(str.charAt(0))) {
+			count++;
+		}
+		
+		for(int i=0; i<str.length(); i++) {
+			if(str.charAt(i) >='A' && str.charAt(i) <='Z') {
+				count++;
+			}
+		}
+		
+		System.out.println(count); //7
+	}
+}
+```
+## if ther is space at begining 
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		String str = " thisNaveenAutomationLabsYoutubeTestingJavapop";
+
+		
+		int count  =0;
+		if(Character.isLowerCase(str.trim().charAt(0))) {
+			count++;
+		}
+		
+		for(int i=0; i<str.length(); i++) {
+			if(str.charAt(i) >='A' && str.charAt(i) <='Z') {
+				count++;
+			}
+		}
+		
+		System.out.println(count); //7
+	}
+}
+```
+
+# 37. Check if subString is present in a given String.
+![Alt text](image-64.png)
+
+// U can split the string and iterate and find the desired thing
+
+```java
+package com.adi;
+
+public class Demo {
+
+	public static boolean isSubstring(String main, String sub) {
+		
+		// .* - start with anyString (.*)
+		//and then sub string should be part of main String (.*) + sub
+		// and end with anything
+		return main.matches("(.*)" + sub + "(.*)");
+	}
+	
+	public static void main(String ar[]) {
+
+		System.out.println(isSubstring("naveen automation labs","labs"));//true
+		
+		System.out.println(isSubstring("naveen automation labs","testing"));//false
+		
+		System.out.println(isSubstring("naveen automation labs $$ special","$$"));//true
+		
+		System.out.println(isSubstring("automation","auto"));//true
+		
+		System.out.println(isSubstring("automation","to"));//true
+		
+		System.out.println(isSubstring("automation","a"));//true
+		
+		System.out.println(isSubstring("automation",null));//false
+		
+		//1 blank space
+		System.out.println(isSubstring("automation labs"," "));//true
+		
+		//2 blank space
+		System.out.println(isSubstring("automation labs","  "));//false
+	}
 
 
+}
+```
+
+## 3rd
+```java
+package com.adi;
+
+public class Demo {
+
+	public static boolean isSubstring(String main, String sub) {
+		
+		
+		return main.contains(sub);
+	}
+	
+	public static void main(String ar[]) {
+
+		System.out.println(isSubstring("naveen automation labs","labs"));//true
+		
+		System.out.println(isSubstring("naveen automation labs","testing"));//false
+		
+		System.out.println(isSubstring("naveen automation labs $$ special","$$"));//true
+		
+		System.out.println(isSubstring("automation","auto"));//true
+		
+		System.out.println(isSubstring("automation","to"));//true
+		
+		System.out.println(isSubstring("automation","a"));//true
+	
+		
+		//1 blank space
+		System.out.println(isSubstring("automation labs"," "));//true
+		
+		//2 blank space
+		System.out.println(isSubstring("automation labs","  "));//false
+		
+		System.out.println(isSubstring("automation",null));// Exception
+		//contains null - leads to exception
+	}
 
 
+}
+```
+
+## 3rd
+```java
+package com.adi;
+
+public class Demo {
+
+	public static boolean isSubstring(String main, String sub) {
+		
+		//If substring is not available in main String it will return -1
+		return main.indexOf(sub) != -1;
+	}
+	
+	public static void main(String ar[]) {
+
+		System.out.println(isSubstring("naveen automation labs","labs"));//true
+		
+		System.out.println(isSubstring("naveen automation labs","testing"));//false
+		
+		System.out.println(isSubstring("naveen automation labs $$ special","$$"));//true
+		
+		System.out.println(isSubstring("automation","auto"));//true
+		
+		System.out.println(isSubstring("automation","to"));//true
+		
+		System.out.println(isSubstring("automation","a"));//true
+	
+		
+		//1 blank space
+		System.out.println(isSubstring("automation labs"," "));//true
+		
+		//2 blank space
+		System.out.println(isSubstring("automation labs","  "));//false
+		
+		System.out.println(isSubstring("automation",null));// Exception
+		//contains null - leads to exception
+	}
 
 
+}
+```
 
+# 38. Why password should be stored in char[]

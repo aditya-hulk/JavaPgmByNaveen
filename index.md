@@ -27,5 +27,13 @@
 # 27. Can we executes comments in java?
 # 28. What will be the output when you compare site url with it's ip address.
 # 29. Find out missing number in an integer array.
-
+# 30. How to find length of String in java without using length() method.
+# 31. What is StringJoiner  or Combine multiple String in one.
+# 32. Count the number of occurence of a character in a String using java8 stream.
+# 33. Vowel count within a String; Via Java, Java8 streams, & Google Guvava
+# 34. Join two arrays in java
+# 35. Calculate average of arrays using Simple loop, java8 & google guvava lib
+# 36. Get the count of words from Capitalize String.
+# 37. Check if subString is present in a given String.
+# 38. Why password should be stored in char[]
 
