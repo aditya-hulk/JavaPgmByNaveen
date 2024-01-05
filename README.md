@@ -3673,3 +3673,412 @@ public class Demo {
 ```
 
 # 38. Why password should be stored in char[]
+![Alt text](image-65.png)
+
+Generally what we do.We create our password then we create there encrypted password. And via decryption we attain our account.
+
+
+
+When you store password as String literal, it will store in heap memory and it's reference variable is store in stack memory.
+![Alt text](image-66.png)
+
+When we change password then refrence variable pointing to new password but the earlier password is not destroyed from SCP(String Constant pool). Since String is immutable. U can't change the string once created.
+![Alt text](image-67.png)
+
+If a hacker get your memory dump or heap dump he can easily access your earlier password.
+
+U can say like garbace collector comes and destroy the value which have no refrence still the hacker has window to perform his operation.
+
+When gc comes to destroy the unrefrence variable b4 that it will take dump.
+
+https://docs.oracle.com/javase/8/docs/technotes/guides/security/crypto/CryptoSpec.html#PBEEx
+
+![Alt text](image-68.png)
+
+Now on we use char[] to store password. Once store we replace the password with nes one. If hacker take heap dump then he will get only new password not old one.
+
+
+In String  accidently we store both things i.e earlier human readale password and encrypted password due to string immutability feature. &that is vulnerable things.  .  
+So we use char array to store password things.
+
+![Alt text](image-69.png)
+
+Here if hacker take heap dump he won't harm our system.
+
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		// if we store password as string
+		String pwd = "Naveen123";
+		
+		//With String
+		//if accidently some one is printed the pwd it is visilbe 
+		// on console log
+		System.out.println("pwd is : "+ pwd); //pwd is : Naveen123
+	}
+
+}
+```
+```java
+package com.adi;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+		// if we store password as char[]
+		char pwd[] = {'a','b','c','1','2'};
+		
+		
+		//if accidently some one is printed the pwd 
+		
+		System.out.println("pwd is : "+ pwd); //pwd is : [C@1cd072a9
+		
+		//It is not printed i.e hashvalue print
+	}
+
+}
+```
+
+## we can replace char[] value also with *
+```java
+package com.adi;
+
+import java.util.Arrays;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+
+	
+		char pwd[] = {'a','b','c','1','2'};
+		
+		System.out.println("pwd is : "+ pwd); //pwd is : [C@1cd072a9
+		
+		//Replace char[] via *
+		Arrays.fill(pwd, '*');
+		
+		for(int i=0; i<pwd.length; i++) {
+			System.out.print(pwd[i]); // *****
+		}
+	}
+
+}
+```
+
+## 1 hack
+### If JVM is crash, it will generate the crash dump .
+
+Aapne abhi change bhi nahi kiya hai char[] pwd ko and Jvm crash ho gya. So crash dump se old pwd nikal sakta Hacker ya wo banda jo monitor karenga crash dump.
+
+# 39. Find Student name holding highest marks. List with object and streams.
+
+![Alt text](image-70.png)
+
+![Alt text](image-71.png)
+
+```java
+package com.adi;
+
+public class Student {
+
+	private String name;
+	private int rollNum;
+	private int marks;
+	private int age;
+	
+	//When we create an object of class we use constructor so
+	// no need to create the setters
+	public Student(String name, int rollNum, int marks, int age) {
+		this.name = name;
+		this.rollNum = rollNum;
+		this.marks = marks;
+		this.age = age;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getRollNum() {
+		return rollNum;
+	}
+
+	public int getMarks() {
+		return marks;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [name=" + name + ", rollNum=" + rollNum + ", marks=" + marks + ", age=" + age + "]";
+	}	
+	
+}
+
+```
+```java
+package com.adi;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Demo {
+
+	public static void main(String ar[]) {
+		
+		Student s1 = new Student("Tom", 1, 90, 15);
+		Student s2 = new Student("Peter", 2, 80, 16);
+		Student s3 = new Student("Lisa", 3, 95, 17);
+		Student s4 = new Student("Robby", 4, 100, 15);
+		Student s5 = new Student("Naveen", 5, 50, 14);
+		
+		//Add all the student into ArrayList
+		List<Student> studentList = new ArrayList<>();
+		
+		studentList.add(s1);
+		studentList.add(s2);
+		studentList.add(s3);
+		studentList.add(s4);
+		studentList.add(s5);
+		
+		//Find Total Student - use list.size() method
+		System.out.println("Total Students : "+ studentList.size());
+		
+		System.out.println("=======================");
+		
+		//Print all these students
+		//via for looop(enhanced for loop)
+		System.out.println("     Print via Enhanced for loop");
+		
+		for(Student stud : studentList) {
+			System.out.println(stud);		}
+		
+		System.out.println("=======================");
+		
+		//Print all these students
+		// via stream
+		System.out.println("     Print via streams");
+		
+		studentList.stream()
+					.forEach(s -> System.out.println(s));
+		
+		System.out.println("=======================");
+		
+		//Give me all student who achieve marks greater than 80
+		System.out.println("     Print students whose marks > 80");
+		
+		studentList.stream()
+					.filter(stud -> stud.getMarks() > 80)
+					.forEach(stud -> System.out.println(stud.getName() + "    :    " + stud.getMarks()));
+		
+		System.out.println("=======================");
+		
+		//Name student who got highest marks
+		System.out.println("     Print students who got highest marks");
+		
+		//Go for map not filter
+		//  pass marks
+		//   go for maximum out for it via max()
+		//     what type of data max() have Integer 
+		//      and call compare method
+		//    fetch all this via get()
+		Integer highestMarks = studentList.stream()
+											.map(stud -> stud.getMarks())
+												.max(Integer::compare)
+													.get();
+		System.out.println("Highest marks of student : " +highestMarks);
+		
+		studentList.stream()
+					.filter(stud -> stud.getMarks()== highestMarks)
+				     .forEach(s -> System.out.println("name who got hm : "+s.getName()));
+	}
+}
+Output:
+Total Students : 5
+=======================
+     Print via Enhanced for loop
+Student [name=Tom, rollNum=1, marks=90, age=15]
+Student [name=Peter, rollNum=2, marks=80, age=16]
+Student [name=Lisa, rollNum=3, marks=95, age=17]
+Student [name=Robby, rollNum=4, marks=100, age=15]
+Student [name=Naveen, rollNum=5, marks=50, age=14]
+=======================
+     Print via streams
+Student [name=Tom, rollNum=1, marks=90, age=15]
+Student [name=Peter, rollNum=2, marks=80, age=16]
+Student [name=Lisa, rollNum=3, marks=95, age=17]
+Student [name=Robby, rollNum=4, marks=100, age=15]
+Student [name=Naveen, rollNum=5, marks=50, age=14]
+=======================
+     Print students whose marks > 80
+Tom    :    90
+Lisa    :    95
+Robby    :    100
+=======================
+     Print students who got highest marks
+Highest marks of student : 100
+name who got hm : Robby
+
+```
+
+# 40. Shift all zero to right side of the Array.
+![Alt text](image-72.png)
+
+### Solve via BruteForce
+U can use brute force (where you compare first element with next
+	and swap it 
+
+## Another approach
+we focus on non zero element and create a new array having same size. & fill new array with  nonzero element then the remaining spaces automatically fills with zeros.   
+Since default value of integer is 0.
+
+![Alt text](image-73.png)
+
+```java
+package com.adi;
+
+import java.util.Arrays;
+
+public class Test {
+
+	public static void main(String arg[]) {
+
+		int i[] = new int[] {1,0,2,0,3,0,0,0}; //1 2 3 0 0 0 0 0
+		
+		//print in console
+		//how to print an array
+		// Arrays.toString(provide array here)
+		System.out.println(Arrays.toString(shiftZeroToRight(i))); //[1, 2, 3, 0, 0, 0, 0, 0]
+
+		i = new int[] {1,2,3,0};
+		System.out.println(Arrays.toString(shiftZeroToRight(i)));  //[1, 2, 3, 0]
+		
+		i = new int[] {1};
+		System.out.println(Arrays.toString(shiftZeroToRight(i))); // [1]
+		
+		
+		
+	}
+
+	public static int[] shiftZeroToRight(int[] intArray) {		
+		//Cover all the scenario's 		
+		//What happen if lenght of Array is = 1
+		if(intArray.length == 1) {
+			return intArray;
+		}
+		
+		// if length is greater than 1 
+		
+		int newArray[] = new int[intArray.length];
+		int count = 0;
+		
+		for(int num : intArray) {
+			
+			//Condition for non zero number
+			if(num != 0) {
+				newArray[count] = num;
+				count++; // increase counter
+			}			
+		}		
+		
+		return newArray;
+	}
+}
+
+```
+## Some enhancements
+```java
+package com.adi;
+
+import java.util.Arrays;
+
+public class Test {
+
+	public static void main(String arg[]) {
+
+		int i[] = new int[] { 1, 0, 2, 0, 3, 0, 0, 0 }; 
+
+		System.out.println(Arrays.toString(shiftZeroToRight(i)));// [1, 2, 3, 0, 0, 0, 0, 0]
+		
+		//if you require 0 in left side 
+		// u need to sort it
+		Arrays.sort(i); 
+		System.out.println(Arrays.toString(i)); // [0, 0, 0, 0, 0, 1, 2, 3]
+
+	}
+
+	public static int[] shiftZeroToRight(int[] intArray) {
+
+		if (intArray.length == 1) {
+			return intArray;
+		}
+
+		int newArray[] = new int[intArray.length];
+		int count = 0;
+
+		for (int num : intArray) {
+
+			if (num != 0) {
+				newArray[count] = num;
+				count++;
+			}
+		}
+
+		return newArray;
+	}
+}
+
+```
+
+### Problem with this approach
+```java
+package com.adi;
+
+import java.util.Arrays;
+
+public class Test {
+
+	public static void main(String arg[]) {
+
+		int i[] = new int[] { 1, 0, 20, 0, 3, 0, 4, 0,90 }; 
+		System.out.println(Arrays.toString(shiftZeroToRight(i)));// [1, 20, 3, 4, 90, 0, 0, 0, 0]
+
+		Arrays.sort(i); 
+		System.out.println(Arrays.toString(i)); // [0, 0, 0, 0, 1, 3, 4, 20, 90]
+
+		//here wo khud hi sort kar raha.. 
+		// jis order mein insert hai .. usme store nhi kar raha
+		
+	}
+
+	public static int[] shiftZeroToRight(int[] intArray) {
+
+		if (intArray.length == 1) {
+			return intArray;
+		}
+
+		int newArray[] = new int[intArray.length];
+		int count = 0;
+
+		for (int num : intArray) {
+
+			if (num != 0) {
+				newArray[count] = num;
+				count++;
+			}
+		}
+
+		return newArray;
+	}
+}
+
+```
+

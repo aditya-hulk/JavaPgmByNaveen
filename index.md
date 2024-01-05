@@ -36,4 +36,7 @@
 # 36. Get the count of words from Capitalize String.
 # 37. Check if subString is present in a given String.
 # 38. Why password should be stored in char[]
+# 39. Find Student name holding highest marks. List with object and streams.
+# 40. Shift all zero to right side of the Array.
+
 
