@@ -427,17 +427,53 @@ public class Demo {
 
 	public static void main(String args[]) {
 
-		//System.out.println(2/0); or 0/0  same result Exception in thread "main" java.lang.ArithmeticException: / by zero
-		
-		System.out.println(1.0 /0.0); // or 2.0/0.0 or 1/0.0    ===>  Infinity		
-	
-		System.out.println(0.0/0.0); // NaN    This number is actually not defined
-		
+		//Squar rooot
 		System.out.println(Math.sqrt(-1)); //NAN sqrt of negative number is not defined
+
+		//Integer
+		System.out.println(Math.sqrt(-1));// NAN
+		System.out.println(Math.sqrt(0)); // 0.0
+		System.out.println(Math.sqrt(1));// 1.0
+
+		//Float
+		System.out.println(Math.sqrt(0.0F)); //0.0		
+		System.out.println(Math.sqrt(-1.0F)); //NaN		
+		System.out.println(Math.sqrt(1.0F)); //1.0
 		
-		System.out.println(2.1 % 0); // NaN
+		//Double
+		System.out.println(Math.sqrt(0.0D)); //0.0		
+		System.out.println(Math.sqrt(-1.0D)); //NaN		
+		System.out.println(Math.sqrt(1.0D)); //1.0
 		
-    	//System.out.println(1 % 0); // Exception in thread "main" java.lang.ArithmeticException: / by zero
+
+		//Mod
+	
+		System.out.println(1 % 0);// Exception in main thread
+		System.out.println(0 % 0);//  Exception in main thread
+		System.out.println(-1 % 0);//  Exception in main thread
+
+		System.out.println(-2.1F % 0);// NAN	
+		System.out.println(0.0F % 0); // NaN
+		System.out.println(2.1F % 0); // NaN
+		
+		System.out.println(-2.1D % 0);// NAN	
+		System.out.println(0.0D % 0); // NaN
+		System.out.println(2.1D % 0); // NaN
+
+//  % by 0.0
+			System.out.println(1 % 0.0);// NAN
+		System.out.println(0 % 0.0);//  NAN
+		System.out.println(-1 % 0.0);//  NAN
+		
+		System.out.println(-2.1F % 0.0);// NAN	
+		System.out.println(0.0F % 0.0); // NaN
+		System.out.println(2.1F % 0.0); // NaN
+		
+		System.out.println(-2.1D % 0.0);// NAN	
+		System.out.println(0.0D % 0.0); // NaN
+		System.out.println(2.1D % 0.0); // NaN
+
+		
 		
 		
 	}
@@ -481,20 +517,38 @@ public class Demo {
 		
 		//Number  = Integer , Double , Float
 		
-		//Arithmetic exception happen only in case of Integer		
+		//Arithmetic exception happen only in case of Integer	
+
+		//Divide Integer number by 0	
 		//Integer
+		//System.out.println(-1/0);  Exception in thread "main" java.lang.ArithmeticException: / by zero
 //		System.out.println(9/0);  Exception in thread "main" java.lang.ArithmeticException: / by zero		
 //		System.out.println(0/0); Exception in thread "main" java.lang.ArithmeticException: / by zero		
-		System.out.println(10 /0.0); // Infinity
+		
 		
 		//Floatig or Double		
 		//A floating or double number if divide by 0 or 0.0 it will give infinity
+		System.out.println(-9.0 / 0);//-Infinity
 		System.out.println(9.0 / 0); //Infinity		
 		System.out.println(9.1F/0); // Infinity		
 		System.out.println(91.99D / 0); //Infinity		
-		System.out.println(9.0 / 0.0); // Infinity
+		
 		
 		System.out.println(0.0 /0); //NaN 0.0 is undefined number
+
+//Divide number by 0.0
+		System.out.println(10 /0.0); // Infinity
+		System.out.println(0 / 0.0);//NaN
+		System.out.println(-11 /0.0); // -Infinity
+
+		System.out.println(9.0 / 0.0); // Infinity
+		System.out.println(-9.0F / 0.0);// -Infinity
+		
+		System.out.println(9.0F / 0.0);// Infinity
+		System.out.println(9.0D / 0.0);// Infinity
+		System.out.println(-9.0D / 0.0);// -Infinity
+
+		
 		System.out.println(0.0 /0.0); //NaN	
 		
 	}
